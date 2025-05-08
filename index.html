@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Til O'rganish - Ingliz va Rus tili platformasi</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		/* Base Styles */
+		:root {
+			--background: #ffffff;
+			--foreground: #0f1011;
+			--card: #ffffff;
+			--card-foreground: #0f1011;
+			--primary: #3b82f6;
+			--primary-foreground: #f8fafc;
+			--secondary: #f1f5f9;
+			--secondary-foreground: #1e293b;
+			--muted: #f1f5f9;
+			--muted-foreground: #64748b;
+			--accent: #f1f5f9;
+			--accent-foreground: #1e293b;
+			--destructive: #ef4444;
+			--destructive-foreground: #f8fafc;
+			--border: #e2e8f0;
+			--input: #e2e8f0;
+			--ring: #3b82f6;
+			--radius: 0.5rem;
+
+			/* Sidebar */
+			--sidebar-background: #f8fafc;
+			--sidebar-foreground: #64748b;
+			--sidebar-accent: #f1f5f9;
+			--sidebar-accent-foreground: #1e293b;
+			--sidebar-border: #e2e8f0;
+			--sidebar-width: 16rem;
+
+			/* Colors */
+			--blue-500: #3b82f6;
+			--red-500: #ef4444;
+			--green-500: #22c55e;
+		}
+
+		.dark {
+			--background: #0f1011;
+			--foreground: #f8fafc;
+			--card: #0f1011;
+			--card-foreground: #f8fafc;
+			--primary: #3b82f6;
+			--primary-foreground: #1e293b;
+			--secondary: #1e293b;
+			--secondary-foreground: #f8fafc;
+			--muted: #1e293b;
+			--muted-foreground: #94a3b8;
+			--accent: #1e293b;
+			--accent-foreground: #f8fafc;
+			--destructive: #7f1d1d;
+			--destructive-foreground: #f8fafc;
+			--border: #1e293b;
+			--input: #1e293b;
+			--ring: #3b82f6;
+
+			/* Sidebar */
+			--sidebar-background: #1e293b;
+			--sidebar-foreground: #f1f5f9;
+			--sidebar-accent: #1e293b;
+			--sidebar-accent-foreground: #f1f5f9;
+			--sidebar-border: #1e293b;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+			font-size: 16px;
+			line-height: 1.5;
+			color: var(--foreground);
+			background-color: var(--background);
+			transition: background-color 0.3s, color 0.3s;
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		/* Layout */
+		.app-container {
+			display: flex;
+			min-height: 100vh;
+		}
+
+		.main-content {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.content {
+			padding: 1.5rem;
+			flex-grow: 1;
+		}
+
+		/* Header */
+		.header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 4rem;
+			padding: 0 1.5rem;
+			border-bottom: 1px solid var(--border);
+			background-color: var(--background);
+		}
+
+		.mobile-logo {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			font-weight: 600;
+		}
+
+		.mobile-logo i {
+			font-size: 1.5rem;
+		}
+
+		.header-actions {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.theme-toggle {
+			background: none;
+			border: none;
+			cursor: pointer;
+			width: 2.5rem;
+			height: 2.5rem;
+			border-radius: var(--radius);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--foreground);
+			border: 1px solid var(--border);
+		}
+
+		.theme-toggle:hover {
+			background-color: var(--secondary);
+		}
+
+		.menu-toggle {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: none;
+			border: none;
+			cursor: pointer;
+			width: 2.5rem;
+			height: 2.5rem;
+			border-radius: var(--radius);
+			color: var(--foreground);
+		}
+
+		.menu-toggle:hover {
+			background-color: var(--secondary);
+		}
+
+		/* Sidebar */
+		.sidebar {
+			width: var(--sidebar-width);
+			background-color: var(--sidebar-background);
+			border-right: 1px solid var(--sidebar-border);
+			display: flex;
+			flex-direction: column;
+			transition: transform 0.3s ease;
+		}
+
+		.sidebar-header {
+			height: 4rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 1rem;
+			border-bottom: 1px solid var(--sidebar-border);
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			font-weight: 600;
+		}
+
+		.logo i {
+			font-size: 1.5rem;
+		}
+
+		.close-sidebar {
+			display: none;
+			background: none;
+			border: none;
+			cursor: pointer;
+			color: var(--sidebar-foreground);
+		}
+
+		.sidebar-nav {
+			flex-grow: 1;
+			padding: 1rem;
+			overflow-y: auto;
+		}
+
+		.nav-group {
+			margin-bottom: 1.5rem;
+		}
+
+		.nav-group-label {
+			font-size: 0.875rem;
+			font-weight: 500;
+			color: var(--sidebar-foreground);
+			padding: 0.5rem 0.75rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.nav-list {
+			display: flex;
+			flex-direction: column;
+			gap: 0.25rem;
+		}
+
+		.nav-item a {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			padding: 0.5rem 0.75rem;
+			border-radius: var(--radius);
+			color: var(--sidebar-foreground);
+			transition: background-color 0.2s;
+		}
+
+		.nav-item a:hover {
+			background-color: var(--sidebar-accent);
+			color: var(--sidebar-accent-foreground);
+		}
+
+		.nav-item.active a {
+			background-color: var(--sidebar-accent);
+			color: var(--sidebar-accent-foreground);
+			font-weight: 500;
+		}
+
+		.sidebar-footer {
+			padding: 1rem;
+			border-top: 1px solid var(--sidebar-border);
+			display: flex;
+			justify-content: space-between;
+			color: var(--sidebar-foreground);
+			font-size: 0.75rem;
+		}
+
+		/* Buttons */
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: var(--radius);
+			font-weight: 500;
+			font-size: 0.875rem;
+			padding: 0.5rem 1rem;
+			transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+			cursor: pointer;
+		}
+
+		.btn-primary {
+			background-color: var(--primary);
+			color: var(--primary-foreground);
+			border: 1px solid var(--primary);
+		}
+
+		.btn-primary:hover {
+			background-color: var(--primary);
+			opacity: 0.9;
+		}
+
+		.btn-outline {
+			background-color: transparent;
+			color: var(--foreground);
+			border: 1px solid var(--border);
+		}
+
+		.btn-outline:hover {
+			background-color: var(--secondary);
+		}
+
+		.btn-full {
+			width: 100%;
+		}
+
+		.btn:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+
+		/* Cards */
+		.card {
+			background-color: var(--card);
+			border-radius: var(--radius);
+			border: 1px solid var(--border);
+			overflow: hidden;
+		}
+
+		.card-header {
+			padding: 1.25rem;
+			display: flex;
+			gap: 1rem;
+			align-items: flex-start;
+		}
+
+		.card-header i {
+			font-size: 1.5rem;
+		}
+
+		.card-header h3 {
+			font-size: 1.25rem;
+			font-weight: 600;
+			margin-bottom: 0.25rem;
+		}
+
+		.card-header p {
+			color: var(--muted-foreground);
+			font-size: 0.875rem;
+		}
+
+		.card-content {
+			padding: 0 1.25rem;
+		}
+
+		.card-footer {
+			padding: 1.25rem;
+			border-top: 1px solid var(--border);
+		}
+
+		/* Hero Section */
+		.hero {
+			padding: 3rem 0;
+			text-align: center;
+		}
+
+		.hero-content {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-bottom: 1rem;
+		}
+
+		.hero p {
+			color: var(--muted-foreground);
+			margin-bottom: 2rem;
+		}
+
+		.hero-buttons {
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+		}
+
+		/* Courses Section */
+		.courses {
+			padding: 3rem 0;
+		}
+
+		.section-header {
+			text-align: center;
+			margin-bottom: 2.5rem;
+		}
+
+		.section-header h2 {
+			font-size: 2rem;
+			font-weight: 700;
+			margin-bottom: 0.5rem;
+		}
+
+		.section-header p {
+			color: var(--muted-foreground);
+			max-width: 600px;
+			margin: 0 auto;
+		}
+
+		.course-cards {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+
+		.course-card {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.feature-list {
+			display: grid;
+			gap: 0.75rem;
+			margin-bottom: 1.25rem;
+		}
+
+		.feature-list li {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.feature-list i {
+			font-size: 1rem;
+		}
+
+		/* Dashboard Styles */
+		.page-title {
+			font-size: 1.875rem;
+			font-weight: 700;
+			margin-bottom: 1.5rem;
+		}
+
+		.stats-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+			gap: 1rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.stat-card {
+			padding: 1.25rem;
+		}
+
+		.stat-content {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.stat-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 2.5rem;
+			height: 2.5rem;
+			border-radius: 0.5rem;
+			background-color: var(--muted);
+			color: var(--muted-foreground);
+		}
+
+		.stat-info {
+			flex-grow: 1;
+		}
+
+		.stat-value {
+			font-size: 1.5rem;
+			font-weight: 700;
+			line-height: 1.2;
+		}
+
+		.stat-label {
+			font-size: 0.875rem;
+			color: var(--muted-foreground);
+		}
+
+		.stat-desc {
+			font-size: 0.75rem;
+			color: var(--muted-foreground);
+		}
+
+		/* Tabs */
+		.tabs-container {
+			margin-top: 2rem;
+		}
+
+		.tabs {
+			display: flex;
+			border-bottom: 1px solid var(--border);
+			margin-bottom: 1rem;
+		}
+
+		.tab-button {
+			padding: 0.75rem 1rem;
+			background: none;
+			border: none;
+			border-bottom: 2px solid transparent;
+			font-size: 0.875rem;
+			font-weight: 500;
+			color: var(--muted-foreground);
+			cursor: pointer;
+		}
+
+		.tab-button:hover {
+			color: var(--foreground);
+		}
+
+		.tab-button.active {
+			color: var(--foreground);
+			border-bottom-color: var(--primary);
+		}
+
+		.tab-content {
+			display: none;
+		}
+
+		.tab-content.active {
+			display: block;
+		}
+
+		/* Progress Bar */
+		.progress-item {
+			margin-bottom: 1.25rem;
+		}
+
+		.progress-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 0.5rem;
+		}
+
+		.progress-label {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			font-size: 0.875rem;
+			font-weight: 500;
+		}
+
+		.progress-value {
+			font-size: 0.875rem;
+			font-weight: 500;
+		}
+
+		.progress-bar {
+			height: 0.5rem;
+			background-color: var(--secondary);
+			border-radius: 9999px;
+			overflow: hidden;
+		}
+
+		.progress {
+			height: 100%;
+			width: 0;
+			border-radius: 9999px;
+			transition: width 1s ease;
+		}
+
+		.progress.blue {
+			background-color: var(--blue-500);
+		}
+
+		.progress.red {
+			background-color: var(--red-500);
+		}
+
+		/* Lessons Styles */
+		.page-header {
+			margin-bottom: 1.5rem;
+		}
+
+		.page-description {
+			color: var(--muted-foreground);
+		}
+
+		.lessons-list {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		.lesson-card {
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+		}
+
+		.lesson-header {
+			padding: 1.25rem;
+			padding-bottom: 0.5rem;
+		}
+
+		.lesson-title {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 0.25rem;
+		}
+
+		.lesson-title h3 {
+			font-size: 1rem;
+			font-weight: 600;
+		}
+
+		.lesson-badge {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.lesson-description {
+			color: var(--muted-foreground);
+			font-size: 0.875rem;
+		}
+
+		.lesson-progress {
+			padding: 0 1.25rem;
+			margin-bottom: 1rem;
+		}
+
+		.progress-text {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 0.5rem;
+			font-size: 0.875rem;
+			color: var(--muted-foreground);
+		}
+
+		.lesson-actions {
+			padding: 1rem 1.25rem;
+			border-top: 1px solid var(--border);
+		}
+
+		.lesson-actions .btn {
+			width: 100%;
+		}
+
+		/* Badge colors */
+		.lesson-badge.completed {
+			color: var(--green-500);
+		}
+
+		.lesson-badge.in-progress {
+			color: var(--blue-500);
+		}
+
+		.lesson-badge.available {
+			color: var(--blue-500);
+		}
+
+		.lesson-badge.locked {
+			color: var(--muted-foreground);
+		}
+
+		/* Dictionary Styles */
+		.search-container {
+			display: flex;
+			gap: 0.5rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.search-input-wrapper {
+			position: relative;
+			flex-grow: 1;
+		}
+
+		.search-input-wrapper i {
+			position: absolute;
+			left: 0.75rem;
+			top: 50%;
+			transform: translateY(-50%);
+			color: var(--muted-foreground);
+		}
+
+		.search-input {
+			width: 100%;
+			padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+			border-radius: var(--radius);
+			border: 1px solid var(--border);
+			background-color: var(--background);
+			color: var(--foreground);
+		}
+
+		.search-input:focus {
+			outline: none;
+			border-color: var(--primary);
+			box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+		}
+
+		.dictionary-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+			gap: 1rem;
+		}
+
+		.word-card {
+			padding: 1rem;
+		}
+
+		.word-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			margin-bottom: 0.5rem;
+		}
+
+		.word-title {
+			font-size: 1.125rem;
+			font-weight: 600;
+		}
+
+		.word-translation {
+			color: var(--muted-foreground);
+			font-size: 0.875rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.word-example {
+			font-size: 0.875rem;
+		}
+
+		/* Grammar Styles */
+		.grammar-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+			gap: 1rem;
+		}
+
+		.grammar-card {
+			padding: 1rem;
+		}
+
+		.grammar-title {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 0.5rem;
+		}
+
+		.grammar-title h3 {
+			font-size: 1rem;
+			font-weight: 600;
+		}
+
+		.grammar-description {
+			color: var(--muted-foreground);
+			font-size: 0.875rem;
+			margin-bottom: 1rem;
+		}
+
+		/* Profile Styles */
+		.profile-container {
+			display: grid;
+			gap: 1.5rem;
+			grid-template-columns: 1fr;
+		}
+
+		@media (min-width: 768px) {
+			.profile-container {
+				grid-template-columns: 300px 1fr;
+			}
+		}
+
+		.profile-sidebar {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+		}
+
+		.profile-main {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+		}
+
+		.profile-avatar {
+			width: 6rem;
+			height: 6rem;
+			border-radius: 50%;
+			background-color: var(--muted);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 2rem;
+			font-weight: 600;
+			color: var(--muted-foreground);
+			margin: 0 auto 1rem;
+		}
+
+		.profile-info {
+			text-align: center;
+		}
+
+		.profile-name {
+			font-size: 1.25rem;
+			font-weight: 600;
+			margin-bottom: 0.25rem;
+		}
+
+		.profile-email {
+			color: var(--muted-foreground);
+			font-size: 0.875rem;
+		}
+
+		.achievements {
+			margin-top: 1.5rem;
+		}
+
+		.achievements-title {
+			font-size: 0.875rem;
+			font-weight: 500;
+			margin-bottom: 0.75rem;
+		}
+
+		.badges {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
+
+		.badge {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.25rem;
+			padding: 0.25rem 0.5rem;
+			border-radius: var(--radius);
+			border: 1px solid var(--border);
+			font-size: 0.75rem;
+		}
+
+		.stats-title {
+			font-size: 0.875rem;
+			font-weight: 500;
+			margin-bottom: 0.75rem;
+		}
+
+		.stats-grid-small {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 0.5rem;
+		}
+
+		.stat-item {
+			padding: 0.75rem;
+			border-radius: var(--radius);
+			border: 1px solid var(--border);
+			text-align: center;
+		}
+
+		.stat-item-value {
+			font-size: 1.25rem;
+			font-weight: 600;
+		}
+
+		.stat-item-label {
+			font-size: 0.75rem;
+			color: var(--muted-foreground);
+		}
+
+		.form-group {
+			margin-bottom: 1rem;
+		}
+
+		.form-label {
+			display: block;
+			font-size: 0.875rem;
+			font-weight: 500;
+			margin-bottom: 0.5rem;
+		}
+
+		.form-input {
+			width: 100%;
+			padding: 0.5rem 0.75rem;
+			border-radius: var(--radius);
+			border: 1px solid var(--border);
+			background-color: var(--background);
+			color: var(--foreground);
+		}
+
+		.form-input:focus {
+			outline: none;
+			border-color: var(--primary);
+			box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+		}
+
+		.form-textarea {
+			width: 100%;
+			padding: 0.5rem 0.75rem;
+			border-radius: var(--radius);
+			border: 1px solid var(--border);
+			background-color: var(--background);
+			color: var(--foreground);
+			min-height: 6rem;
+			resize: vertical;
+		}
+
+		.form-textarea:focus {
+			outline: none;
+			border-color: var(--primary);
+			box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+		}
+
+		/* Page Sections */
+		.page-section {
+			display: none;
+		}
+
+		.page-section.active {
+			display: block;
+		}
+
+		/* Utility Classes */
+		.text-blue {
+			color: var(--blue-500);
+		}
+
+		.text-red {
+			color: var(--red-500);
+		}
+
+		.text-green {
+			color: var(--green-500);
+		}
+
+		/* Media Queries */
+		@media (max-width: 768px) {
+			.sidebar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				z-index: 100;
+				transform: translateX(-100%);
+			}
+
+			.sidebar.active {
+				transform: translateX(0);
+			}
+
+			.close-sidebar {
+				display: block;
+			}
+
+			.hero h1 {
+				font-size: 2rem;
+			}
+
+			.hero-buttons {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.btn {
+				width: 100%;
+				max-width: 300px;
+			}
+
+			.stats-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="app-container">
+		<!-- Sidebar -->
+		<aside class="sidebar" id="sidebar">
+			<div class="sidebar-header">
+				<div class="logo">
+					<i class="fas fa-language"></i>
+					<span>Til O'rganish</span>
+				</div>
+				<button class="close-sidebar" id="close-sidebar">
+					<i class="fas fa-times"></i>
+				</button>
+			</div>
+
+			<nav class="sidebar-nav">
+				<div class="nav-group">
+					<ul class="nav-list">
+						<li class="nav-item active" data-page="home">
+							<a href="#" onclick="showPage('home'); return false;">
+								<i class="fas fa-home"></i>
+								<span>Bosh sahifa</span>
+							</a>
+						</li>
+						<li class="nav-item" data-page="dashboard">
+							<a href="#" onclick="showPage('dashboard'); return false;">
+								<i class="fas fa-chart-line"></i>
+								<span>Dashboard</span>
+							</a>
+						</li>
+						<li class="nav-item" data-page="profile">
+							<a href="#" onclick="showPage('profile'); return false;">
+								<i class="fas fa-user"></i>
+								<span>Profil</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="nav-group">
+					<div class="nav-group-label">Ingliz tili</div>
+					<ul class="nav-list">
+						<li class="nav-item" data-page="english">
+							<a href="#" onclick="showPage('english'); return false;">
+								<i class="fas fa-language"></i>
+								<span>Ingliz tili</span>
+							</a>
+						</li>
+						<li class="nav-item" data-page="english-lessons">
+							<a href="#" onclick="showPage('english-lessons'); return false;">
+								<i class="fas fa-book-open"></i>
+								<span>Darslar</span>
+							</a>
+						</li>
+						<li class="nav-item" data-page="english-grammar">
+							<a href="#" onclick="showPage('english-grammar'); return false;">
+								<i class="fas fa-book"></i>
+								<span>Grammatika</span>
+							</a>
+						</li>
+						<li class="nav-item" data-page="english-dictionary">
+							<a href="#" onclick="showPage('english-dictionary'); return false;">
+								<i class="fas fa-book-reader"></i>
+								<span>Lug'at</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="nav-group">
+					<div class="nav-group-label">Rus tili</div>
+					<ul class="nav-list">
+						<li class="nav-item" data-page="russian">
+							<a href="#" onclick="showPage('russian'); return false;">
+								<i class="fas fa-language"></i>
+								<span>Rus tili</span>
+							</a>
+						</li>
+						<li class="nav-item" data-page="russian-lessons">
+							<a href="#" onclick="showPage('russian-lessons'); return false;">
+								<i class="fas fa-book-open"></i>
+								<span>Darslar</span>
+							</a>
+						</li>
+						<li class="nav-item" data-page="russian-grammar">
+							<a href="#" onclick="showPage('russian-grammar'); return false;">
+								<i class="fas fa-book"></i>
+								<span>Grammatika</span>
+							</a>
+						</li>
+						<li class="nav-item" data-page="russian-dictionary">
+							<a href="#" onclick="showPage('russian-dictionary'); return false;">
+								<i class="fas fa-book-reader"></i>
+								<span>Lug'at</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<div class="sidebar-footer">
+				<span>© 2025 Til O'rganish</span>
+			</div>
+		</aside>
+
+		<!-- Main Content -->
+		<main class="main-content">
+			<header class="header">
+				<button class="menu-toggle" id="menu-toggle">
+					<i class="fas fa-bars"></i>
+				</button>
+				<div class="mobile-logo">
+					<i class="fas fa-language"></i>
+					<span>Til O'rganish</span>
+				</div>
+				<div class="header-actions">
+					<button id="theme-toggle" class="theme-toggle">
+						<i class="fas fa-moon"></i>
+					</button>
+					<a href="#" onclick="showPage('profile'); return false;" class="btn btn-primary">Profil</a>
+				</div>
+			</header>
+
+			<!-- Page Content -->
+			<div class="content">
+				<!-- Home Page -->
+				<section id="home" class="page-section active">
+					<!-- Hero Section -->
+					<section class="hero">
+						<div class="hero-content">
+							<h1>Ingliz va Rus tillarini o'rganing</h1>
+							<p>Zamonaviy va interaktiv usulda ingliz va rus tillarini o'rganish uchun platformamizga xush kelibsiz.
+							</p>
+							<div class="hero-buttons">
+								<a href="#" onclick="showPage('dashboard'); return false;" class="btn btn-primary">Boshlash</a>
+								<a href="#" onclick="showPage('english-lessons'); return false;" class="btn btn-outline">Darslar</a>
+							</div>
+						</div>
+					</section>
+
+					<!-- Courses Section -->
+					<section class="courses">
+						<div class="section-header">
+							<h2>Kurslarimiz</h2>
+							<p>Ingliz va rus tillarini o'rganish uchun kurslarimiz bilan tanishing</p>
+						</div>
+						<div class="course-cards">
+							<div class="card course-card">
+								<div class="card-header">
+									<i class="fas fa-language text-blue"></i>
+									<div>
+										<h3>Ingliz tili</h3>
+										<p>Ingliz tilini boshlang'ich darajadan professional darajagacha o'rganing</p>
+									</div>
+								</div>
+								<div class="card-content">
+									<ul class="feature-list">
+										<li>
+											<i class="fas fa-book-open"></i>
+											<span>Grammatika va lug'at</span>
+										</li>
+										<li>
+											<i class="fas fa-graduation-cap"></i>
+											<span>Interaktiv mashqlar</span>
+										</li>
+										<li>
+											<i class="fas fa-book-reader"></i>
+											<span>Audio va video materiallar</span>
+										</li>
+									</ul>
+								</div>
+								<div class="card-footer">
+									<a href="#" onclick="showPage('english'); return false;" class="btn btn-primary btn-full">Ingliz tili
+										kursiga o'tish</a>
+								</div>
+							</div>
+
+							<div class="card course-card">
+								<div class="card-header">
+									<i class="fas fa-language text-red"></i>
+									<div>
+										<h3>Rus tili</h3>
+										<p>Rus tilini boshlang'ich darajadan professional darajagacha o'rganing</p>
+									</div>
+								</div>
+								<div class="card-content">
+									<ul class="feature-list">
+										<li>
+											<i class="fas fa-book-open"></i>
+											<span>Grammatika va lug'at</span>
+										</li>
+										<li>
+											<i class="fas fa-graduation-cap"></i>
+											<span>Interaktiv mashqlar</span>
+										</li>
+										<li>
+											<i class="fas fa-book-reader"></i>
+											<span>Audio va video materiallar</span>
+										</li>
+									</ul>
+								</div>
+								<div class="card-footer">
+									<a href="#" onclick="showPage('russian'); return false;" class="btn btn-primary btn-full">Rus tili
+										kursiga o'tish</a>
+								</div>
+							</div>
+						</div>
+					</section>
+				</section>
+
+				<!-- Dashboard Page -->
+				<section id="dashboard" class="page-section">
+					<h1 class="page-title">Dashboard</h1>
+
+					<!-- Stats Cards -->
+					<div class="stats-grid">
+						<div class="card stat-card">
+							<div class="stat-content">
+								<div class="stat-icon">
+									<i class="fas fa-book-open"></i>
+								</div>
+								<div class="stat-info">
+									<h2 class="stat-value">24</h2>
+									<p class="stat-label">Umumiy darslar</p>
+								</div>
+							</div>
+							<p class="stat-desc">12 ta ingliz tili, 12 ta rus tili</p>
+						</div>
+
+						<div class="card stat-card">
+							<div class="stat-content">
+								<div class="stat-icon">
+									<i class="fas fa-book-reader"></i>
+								</div>
+								<div class="stat-info">
+									<h2 class="stat-value">145</h2>
+									<p class="stat-label">O'rganilgan so'zlar</p>
+								</div>
+							</div>
+							<p class="stat-desc">Oxirgi hafta +23 ta so'z</p>
+						</div>
+
+						<div class="card stat-card">
+							<div class="stat-content">
+								<div class="stat-icon">
+									<i class="fas fa-graduation-cap"></i>
+								</div>
+								<div class="stat-info">
+									<h2 class="stat-value">8</h2>
+									<p class="stat-label">Tugallangan darslar</p>
+								</div>
+							</div>
+							<p class="stat-desc">Umumiy darslarning 33%</p>
+						</div>
+
+						<div class="card stat-card">
+							<div class="stat-content">
+								<div class="stat-icon">
+									<i class="fas fa-trophy"></i>
+								</div>
+								<div class="stat-info">
+									<h2 class="stat-value">320</h2>
+									<p class="stat-label">Ballar</p>
+								</div>
+							</div>
+							<p class="stat-desc">Oxirgi hafta +45 ball</p>
+						</div>
+					</div>
+
+					<!-- Language Progress Tabs -->
+					<div class="tabs-container">
+						<div class="tabs">
+							<button class="tab-button active" data-tab="english">Ingliz tili</button>
+							<button class="tab-button" data-tab="russian">Rus tili</button>
+						</div>
+
+						<div class="tab-content active" id="english-tab">
+							<div class="card progress-card">
+								<div class="card-header">
+									<h3>Ingliz tili bo'yicha progress</h3>
+									<p>Siz ingliz tili kursining 40% ni tugatdingiz</p>
+								</div>
+								<div class="card-content">
+									<div class="progress-item">
+										<div class="progress-header">
+											<div class="progress-label">
+												<i class="fas fa-language text-blue"></i>
+												<span>Umumiy progress</span>
+											</div>
+											<span class="progress-value">40%</span>
+										</div>
+										<div class="progress-bar">
+											<div class="progress blue" data-value="40"></div>
+										</div>
+									</div>
+
+									<div class="progress-item">
+										<div class="progress-header">
+											<div class="progress-label">
+												<i class="fas fa-book-open text-blue"></i>
+												<span>Darslar</span>
+											</div>
+											<span class="progress-value">5/12</span>
+										</div>
+										<div class="progress-bar">
+											<div class="progress blue" data-value="42"></div>
+										</div>
+									</div>
+
+									<div class="progress-item">
+										<div class="progress-header">
+											<div class="progress-label">
+												<i class="fas fa-book-reader text-blue"></i>
+												<span>Lug'at</span>
+											</div>
+											<span class="progress-value">85/200</span>
+										</div>
+										<div class="progress-bar">
+											<div class="progress blue" data-value="42"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-content" id="russian-tab">
+							<div class="card progress-card">
+								<div class="card-header">
+									<h3>Rus tili bo'yicha progress</h3>
+									<p>Siz rus tili kursining 25% ni tugatdingiz</p>
+								</div>
+								<div class="card-content">
+									<div class="progress-item">
+										<div class="progress-header">
+											<div class="progress-label">
+												<i class="fas fa-language text-red"></i>
+												<span>Umumiy progress</span>
+											</div>
+											<span class="progress-value">25%</span>
+										</div>
+										<div class="progress-bar">
+											<div class="progress red" data-value="25"></div>
+										</div>
+									</div>
+
+									<div class="progress-item">
+										<div class="progress-header">
+											<div class="progress-label">
+												<i class="fas fa-book-open text-red"></i>
+												<span>Darslar</span>
+											</div>
+											<span class="progress-value">3/12</span>
+										</div>
+										<div class="progress-bar">
+											<div class="progress red" data-value="25"></div>
+										</div>
+									</div>
+
+									<div class="progress-item">
+										<div class="progress-header">
+											<div class="progress-label">
+												<i class="fas fa-book-reader text-red"></i>
+												<span>Lug'at</span>
+											</div>
+											<span class="progress-value">60/200</span>
+										</div>
+										<div class="progress-bar">
+											<div class="progress red" data-value="30"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- English Page -->
+				<section id="english" class="page-section">
+					<div class="page-header">
+						<h1 class="page-title">Ingliz tili</h1>
+						<p class="page-description">Ingliz tilini o'rganish uchun asosiy sahifa</p>
+					</div>
+
+					<div class="card">
+						<div class="card-header">
+							<h3>Ingliz tili kursi haqida</h3>
+							<p>Ingliz tilini o'rganish uchun to'liq kurs</p>
+						</div>
+						<div class="card-content">
+							<p>Ushbu kurs orqali siz ingliz tilini boshlang'ich darajadan professional darajagacha o'rganishingiz
+								mumkin. Kurs grammatika, lug'at, talaffuz va muloqot ko'nikmalarini o'z ichiga oladi.</p>
+							<div class="tabs-container">
+								<div class="tabs">
+									<button class="tab-button active" data-tab="english-overview">Umumiy ma'lumot</button>
+									<button class="tab-button" data-tab="english-structure">Kurs tuzilishi</button>
+								</div>
+								<div class="tab-content active" id="english-overview-tab">
+									<ul class="feature-list">
+										<li>
+											<i class="fas fa-check text-green"></i>
+											<span>12 ta dars</span>
+										</li>
+										<li>
+											<i class="fas fa-check text-green"></i>
+											<span>200+ so'z va iboralar</span>
+										</li>
+										<li>
+											<i class="fas fa-check text-green"></i>
+											<span>Interaktiv mashqlar</span>
+										</li>
+										<li>
+											<i class="fas fa-check text-green"></i>
+											<span>Audio va video materiallar</span>
+										</li>
+									</ul>
+								</div>
+								<div class="tab-content" id="english-structure-tab">
+									<ul class="feature-list">
+										<li>
+											<i class="fas fa-book-open text-blue"></i>
+											<span>Boshlang'ich daraja (1-4 darslar)</span>
+										</li>
+										<li>
+											<i class="fas fa-book-open text-blue"></i>
+											<span>O'rta daraja (5-8 darslar)</span>
+										</li>
+										<li>
+											<i class="fas fa-book-open text-blue"></i>
+											<span>Yuqori daraja (9-12 darslar)</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer">
+							<a href="#" onclick="showPage('english-lessons'); return false;" class="btn btn-primary">Darslarga
+								o'tish</a>
+						</div>
+					</div>
+				</section>
+
+				<!-- English Lessons Page -->
+				<section id="english-lessons" class="page-section">
+					<div class="page-header">
+						<h1 class="page-title">Ingliz tili darslari</h1>
+						<p class="page-description">Ingliz tilini o'rganish uchun darslar to'plami</p>
+					</div>
+
+					<div class="lessons-list">
+						<!-- Lesson 1 -->
+						<div class="card lesson-card completed">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 1: Salomlashish va tanishish</h3>
+									<span class="lesson-badge completed">
+										<i class="fas fa-check-circle"></i>
+									</span>
+								</div>
+								<p class="lesson-description">Ingliz tilida salomlashish va o'zini tanishtirish</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>100%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress blue" data-value="100"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-outline">Qayta ko'rish</a>
+							</div>
+						</div>
+
+						<!-- Lesson 2 -->
+						<div class="card lesson-card completed">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 2: Alfavit va talaffuz</h3>
+									<span class="lesson-badge completed">
+										<i class="fas fa-check-circle"></i>
+									</span>
+								</div>
+								<p class="lesson-description">Ingliz tili alfaviti va asosiy talaffuz qoidalari</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>100%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress blue" data-value="100"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-outline">Qayta ko'rish</a>
+							</div>
+						</div>
+
+						<!-- Lesson 3 -->
+						<div class="card lesson-card completed">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 3: Sonlar va sanash</h3>
+									<span class="lesson-badge completed">
+										<i class="fas fa-check-circle"></i>
+									</span>
+								</div>
+								<p class="lesson-description">Ingliz tilida sonlar va sanash</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>100%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress blue" data-value="100"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-outline">Qayta ko'rish</a>
+							</div>
+						</div>
+
+						<!-- Lesson 4 -->
+						<div class="card lesson-card completed">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 4: To be fe'li</h3>
+									<span class="lesson-badge completed">
+										<i class="fas fa-check-circle"></i>
+									</span>
+								</div>
+								<p class="lesson-description">To be fe'lining hozirgi zamonda ishlatilishi</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>100%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress blue" data-value="100"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-outline">Qayta ko'rish</a>
+							</div>
+						</div>
+
+						<!-- Lesson 5 -->
+						<div class="card lesson-card in-progress">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 5: Present Simple</h3>
+									<span class="lesson-badge in-progress">
+										<i class="fas fa-spinner"></i>
+									</span>
+								</div>
+								<p class="lesson-description">Hozirgi oddiy zamon</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>80%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress blue" data-value="80"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-primary">Davom ettirish</a>
+							</div>
+						</div>
+
+						<!-- Lesson 6 -->
+						<div class="card lesson-card available">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 6: Present Continuous</h3>
+									<span class="lesson-badge available">
+										<i class="fas fa-book-open"></i>
+									</span>
+								</div>
+								<p class="lesson-description">Hozirgi davomli zamon</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>0%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress blue" data-value="0"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-primary">Boshlash</a>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- English Grammar Page -->
+				<section id="english-grammar" class="page-section">
+					<div class="page-header">
+						<h1 class="page-title">Ingliz tili grammatikasi</h1>
+						<p class="page-description">Ingliz tili grammatikasi bo'yicha qoidalar va misollar</p>
+					</div>
+
+					<div class="search-container">
+						<div class="search-input-wrapper">
+							<i class="fas fa-search"></i>
+							<input type="search" class="search-input" placeholder="Grammatika qoidasini qidirish...">
+						</div>
+						<button class="btn btn-primary">Qidirish</button>
+					</div>
+
+					<div class="grammar-grid">
+						<!-- Grammar cards -->
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Present Simple</h3>
+								<i class="fas fa-book text-blue"></i>
+							</div>
+							<p class="grammar-description">Hozirgi oddiy zamon</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Present Continuous</h3>
+								<i class="fas fa-book text-blue"></i>
+							</div>
+							<p class="grammar-description">Hozirgi davomli zamon</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Past Simple</h3>
+								<i class="fas fa-book text-blue"></i>
+							</div>
+							<p class="grammar-description">O'tgan oddiy zamon</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Past Continuous</h3>
+								<i class="fas fa-book text-blue"></i>
+							</div>
+							<p class="grammar-description">O'tgan davomli zamon</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Future Simple</h3>
+								<i class="fas fa-book text-blue"></i>
+							</div>
+							<p class="grammar-description">Kelasi oddiy zamon</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Modal Verbs</h3>
+								<i class="fas fa-book text-blue"></i>
+							</div>
+							<p class="grammar-description">Modal fe'llar</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+					</div>
+				</section>
+
+				<!-- English Dictionary Page -->
+				<section id="english-dictionary" class="page-section">
+					<div class="page-header">
+						<h1 class="page-title">Ingliz tili lug'ati</h1>
+						<p class="page-description">Ingliz tilidagi so'zlar va ularning tarjimalari</p>
+					</div>
+
+					<div class="search-container">
+						<div class="search-input-wrapper">
+							<i class="fas fa-search"></i>
+							<input type="search" class="search-input" placeholder="So'z qidirish...">
+						</div>
+						<button class="btn btn-primary">Qidirish</button>
+					</div>
+
+					<div class="tabs-container">
+						<div class="tabs">
+							<button class="tab-button active" data-tab="all-words">Barcha so'zlar</button>
+							<button class="tab-button" data-tab="learned-words">O'rganilgan</button>
+							<button class="tab-button" data-tab="categories">Kategoriyalar</button>
+						</div>
+
+						<div class="tab-content active" id="all-words-tab">
+							<div class="dictionary-grid">
+								<!-- Word cards -->
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Hello</h3>
+										<i class="fas fa-book-reader text-blue"></i>
+									</div>
+									<p class="word-translation">Salom</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> Hello, how are you?</p>
+								</div>
+
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Goodbye</h3>
+										<i class="fas fa-book-reader text-blue"></i>
+									</div>
+									<p class="word-translation">Xayr</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> Goodbye, see you tomorrow.</p>
+								</div>
+
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Thank you</h3>
+										<i class="fas fa-book-reader text-blue"></i>
+									</div>
+									<p class="word-translation">Rahmat</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> Thank you for your help.</p>
+								</div>
+
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Please</h3>
+										<i class="fas fa-book-reader text-blue"></i>
+									</div>
+									<p class="word-translation">Iltimos</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> Please, help me.</p>
+								</div>
+
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Friend</h3>
+										<i class="fas fa-book-reader text-blue"></i>
+									</div>
+									<p class="word-translation">Do'st</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> She is my friend.</p>
+								</div>
+
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Family</h3>
+										<i class="fas fa-book-reader text-blue"></i>
+									</div>
+									<p class="word-translation">Oila</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> I have a big family.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Russian Page -->
+				<section id="russian" class="page-section">
+					<div class="page-header">
+						<h1 class="page-title">Rus tili</h1>
+						<p class="page-description">Rus tilini o'rganish uchun asosiy sahifa</p>
+					</div>
+
+					<div class="card">
+						<div class="card-header">
+							<h3>Rus tili kursi haqida</h3>
+							<p>Rus tilini o'rganish uchun to'liq kurs</p>
+						</div>
+						<div class="card-content">
+							<p>Ushbu kurs orqali siz rus tilini boshlang'ich darajadan professional darajagacha o'rganishingiz mumkin.
+								Kurs grammatika, lug'at, talaffuz va muloqot ko'nikmalarini o'z ichiga oladi.</p>
+							<div class="tabs-container">
+								<div class="tabs">
+									<button class="tab-button active" data-tab="russian-overview">Umumiy ma'lumot</button>
+									<button class="tab-button" data-tab="russian-structure">Kurs tuzilishi</button>
+								</div>
+								<div class="tab-content active" id="russian-overview-tab">
+									<ul class="feature-list">
+										<li>
+											<i class="fas fa-check text-green"></i>
+											<span>12 ta dars</span>
+										</li>
+										<li>
+											<i class="fas fa-check text-green"></i>
+											<span>200+ so'z va iboralar</span>
+										</li>
+										<li>
+											<i class="fas fa-check text-green"></i>
+											<span>Interaktiv mashqlar</span>
+										</li>
+										<li>
+											<i class="fas fa-check text-green"></i>
+											<span>Audio va video materiallar</span>
+										</li>
+									</ul>
+								</div>
+								<div class="tab-content" id="russian-structure-tab">
+									<ul class="feature-list">
+										<li>
+											<i class="fas fa-book-open text-red"></i>
+											<span>Boshlang'ich daraja (1-4 darslar)</span>
+										</li>
+										<li>
+											<i class="fas fa-book-open text-red"></i>
+											<span>O'rta daraja (5-8 darslar)</span>
+										</li>
+										<li>
+											<i class="fas fa-book-open text-red"></i>
+											<span>Yuqori daraja (9-12 darslar)</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer">
+							<a href="#" onclick="showPage('russian-lessons'); return false;" class="btn btn-primary">Darslarga
+								o'tish</a>
+						</div>
+					</div>
+				</section>
+
+				<!-- Russian Lessons Page -->
+				<section id="russian-lessons" class="page-section">
+					<div class="page-header">
+						<h1 class="page-title">Rus tili darslari</h1>
+						<p class="page-description">Rus tilini o'rganish uchun darslar to'plami</p>
+					</div>
+
+					<div class="lessons-list">
+						<!-- Lesson 1 -->
+						<div class="card lesson-card completed">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 1: Salomlashish va tanishish</h3>
+									<span class="lesson-badge completed">
+										<i class="fas fa-check-circle"></i>
+									</span>
+								</div>
+								<p class="lesson-description">Rus tilida salomlashish va o'zini tanishtirish</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>100%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress red" data-value="100"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-outline">Qayta ko'rish</a>
+							</div>
+						</div>
+
+						<!-- Lesson 2 -->
+						<div class="card lesson-card completed">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 2: Alfavit va talaffuz</h3>
+									<span class="lesson-badge completed">
+										<i class="fas fa-check-circle"></i>
+									</span>
+								</div>
+								<p class="lesson-description">Rus tili alfaviti va asosiy talaffuz qoidalari</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>100%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress red" data-value="100"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-outline">Qayta ko'rish</a>
+							</div>
+						</div>
+
+						<!-- Lesson 3 -->
+						<div class="card lesson-card completed">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 3: Sonlar va sanash</h3>
+									<span class="lesson-badge completed">
+										<i class="fas fa-check-circle"></i>
+									</span>
+								</div>
+								<p class="lesson-description">Rus tilida sonlar va sanash</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>100%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress red" data-value="100"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-outline">Qayta ko'rish</a>
+							</div>
+						</div>
+
+						<!-- Lesson 4 -->
+						<div class="card lesson-card in-progress">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 4: Otlar va sifatlar</h3>
+									<span class="lesson-badge in-progress">
+										<i class="fas fa-spinner"></i>
+									</span>
+								</div>
+								<p class="lesson-description">Rus tilida otlar va sifatlar</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>60%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress red" data-value="60"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-primary">Davom ettirish</a>
+							</div>
+						</div>
+
+						<!-- Lesson 5 -->
+						<div class="card lesson-card available">
+							<div class="lesson-header">
+								<div class="lesson-title">
+									<h3>Dars 5: Fe'llar</h3>
+									<span class="lesson-badge available">
+										<i class="fas fa-book-open"></i>
+									</span>
+								</div>
+								<p class="lesson-description">Rus tilida fe'llar</p>
+							</div>
+							<div class="lesson-progress">
+								<div class="progress-text">
+									<span>Progress</span>
+									<span>0%</span>
+								</div>
+								<div class="progress-bar">
+									<div class="progress red" data-value="0"></div>
+								</div>
+							</div>
+							<div class="lesson-actions">
+								<a href="#" class="btn btn-primary">Boshlash</a>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Russian Grammar Page -->
+				<section id="russian-grammar" class="page-section">
+					<div class="page-header">
+						<h1 class="page-title">Rus tili grammatikasi</h1>
+						<p class="page-description">Rus tili grammatikasi bo'yicha qoidalar va misollar</p>
+					</div>
+
+					<div class="search-container">
+						<div class="search-input-wrapper">
+							<i class="fas fa-search"></i>
+							<input type="search" class="search-input" placeholder="Grammatika qoidasini qidirish...">
+						</div>
+						<button class="btn btn-primary">Qidirish</button>
+					</div>
+
+					<div class="grammar-grid">
+						<!-- Grammar cards -->
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Падежи</h3>
+								<i class="fas fa-book text-red"></i>
+							</div>
+							<p class="grammar-description">Rus tilidagi kelishiklar</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Глаголы движения</h3>
+								<i class="fas fa-book text-red"></i>
+							</div>
+							<p class="grammar-description">Harakat fe'llari</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Виды глагола</h3>
+								<i class="fas fa-book text-red"></i>
+							</div>
+							<p class="grammar-description">Fe'l turlari</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Прилагательные</h3>
+								<i class="fas fa-book text-red"></i>
+							</div>
+							<p class="grammar-description">Sifatlar</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Числительные</h3>
+								<i class="fas fa-book text-red"></i>
+							</div>
+							<p class="grammar-description">Sonlar</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+
+						<div class="card grammar-card">
+							<div class="grammar-title">
+								<h3>Местоимения</h3>
+								<i class="fas fa-book text-red"></i>
+							</div>
+							<p class="grammar-description">Olmoshlar</p>
+							<a href="#" class="btn btn-outline">Batafsil</a>
+						</div>
+					</div>
+				</section>
+
+				<!-- Russian Dictionary Page -->
+				<section id="russian-dictionary" class="page-section">
+					<div class="page-header">
+						<h1 class="page-title">Rus tili lug'ati</h1>
+						<p class="page-description">Rus tilidagi so'zlar va ularning tarjimalari</p>
+					</div>
+
+					<div class="search-container">
+						<div class="search-input-wrapper">
+							<i class="fas fa-search"></i>
+							<input type="search" class="search-input" placeholder="So'z qidirish...">
+						</div>
+						<button class="btn btn-primary">Qidirish</button>
+					</div>
+
+					<div class="tabs-container">
+						<div class="tabs">
+							<button class="tab-button active" data-tab="all-words-ru">Barcha so'zlar</button>
+							<button class="tab-button" data-tab="learned-words-ru">O'rganilgan</button>
+							<button class="tab-button" data-tab="categories-ru">Kategoriyalar</button>
+						</div>
+
+						<div class="tab-content active" id="all-words-ru-tab">
+							<div class="dictionary-grid">
+								<!-- Word cards -->
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Привет</h3>
+										<i class="fas fa-book-reader text-red"></i>
+									</div>
+									<p class="word-translation">Salom</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> Привет, как дела?</p>
+								</div>
+
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">До свидания</h3>
+										<i class="fas fa-book-reader text-red"></i>
+									</div>
+									<p class="word-translation">Xayr</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> До свидания, увидимся завтра.</p>
+								</div>
+
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Спасибо</h3>
+										<i class="fas fa-book-reader text-red"></i>
+									</div>
+									<p class="word-translation">Rahmat</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> Спасибо за помощь.</p>
+								</div>
+
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Пожалуйста</h3>
+										<i class="fas fa-book-reader text-red"></i>
+									</div>
+									<p class="word-translation">Iltimos</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> Пожалуйста, помогите мне.</p>
+								</div>
+
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Друг</h3>
+										<i class="fas fa-book-reader text-red"></i>
+									</div>
+									<p class="word-translation">Do'st</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> Он мой друг.</p>
+								</div>
+
+								<div class="card word-card">
+									<div class="word-header">
+										<h3 class="word-title">Семья</h3>
+										<i class="fas fa-book-reader text-red"></i>
+									</div>
+									<p class="word-translation">Oila</p>
+									<p class="word-example"><span class="font-medium">Misol:</span> У меня большая семья.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Profile Page -->
+				<section id="profile" class="page-section">
+					<h1 class="page-title">Profil</h1>
+
+					<div class="profile-container">
+						<div class="profile-sidebar">
+							<div class="card">
+								<div class="card-content">
+									<div class="profile-avatar">OU</div>
+									<div class="profile-info">
+										<h2 class="profile-name">O'quvchi Uchun</h2>
+										<p class="profile-email">o'quvchi@example.com</p>
+									</div>
+
+									<div class="achievements">
+										<h3 class="achievements-title">Yutuqlar</h3>
+										<div class="badges">
+											<span class="badge">
+												<span class="text-blue">★</span> Boshlang'ich
+											</span>
+											<span class="badge">
+												<span class="text-blue">★</span> 5 kun ketma-ket
+											</span>
+											<span class="badge">
+												<span class="text-green">★</span> 100 so'z
+											</span>
+										</div>
+									</div>
+
+									<div class="achievements">
+										<h3 class="stats-title">Statistika</h3>
+										<div class="stats-grid-small">
+											<div class="stat-item">
+												<div class="stat-item-value">24</div>
+												<div class="stat-item-label">Darslar</div>
+											</div>
+											<div class="stat-item">
+												<div class="stat-item-value">145</div>
+												<div class="stat-item-label">So'zlar</div>
+											</div>
+											<div class="stat-item">
+												<div class="stat-item-value">8</div>
+												<div class="stat-item-label">Tugallangan</div>
+											</div>
+											<div class="stat-item">
+												<div class="stat-item-value">320</div>
+												<div class="stat-item-label">Ballar</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="profile-main">
+							<div class="card">
+								<div class="card-header">
+									<h3>Hisob ma'lumotlari</h3>
+									<p>Profil ma'lumotlaringizni o'zgartiring</p>
+								</div>
+								<div class="card-content">
+									<div class="form-group">
+										<label for="first-name" class="form-label">Ism</label>
+										<input type="text" id="first-name" class="form-input" value="O'quvchi">
+									</div>
+									<div class="form-group">
+										<label for="last-name" class="form-label">Familiya</label>
+										<input type="text" id="last-name" class="form-input" value="Uchun">
+									</div>
+									<div class="form-group">
+										<label for="email" class="form-label">Email</label>
+										<input type="email" id="email" class="form-input" value="o'quvchi@example.com">
+									</div>
+									<div class="form-group">
+										<label for="bio" class="form-label">Bio</label>
+										<textarea id="bio" class="form-textarea">Men ingliz va rus tillarini o'rganmoqchiman.</textarea>
+									</div>
+								</div>
+								<div class="card-footer">
+									<button class="btn btn-primary">Saqlash</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</main>
+	</div>
+
+	<script>
+		// Theme toggle
+		document.addEventListener('DOMContentLoaded', function () {
+			const themeToggle = document.getElementById('theme-toggle')
+			const themeIcon = themeToggle.querySelector('i')
+			const body = document.body
+
+			// Check for saved theme preference
+			const savedTheme = localStorage.getItem('theme')
+			if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+				body.classList.add('dark')
+				themeIcon.classList.remove('fa-moon')
+				themeIcon.classList.add('fa-sun')
+			}
+
+			themeToggle.addEventListener('click', function () {
+				body.classList.toggle('dark')
+
+				if (body.classList.contains('dark')) {
+					themeIcon.classList.remove('fa-moon')
+					themeIcon.classList.add('fa-sun')
+					localStorage.setItem('theme', 'dark')
+				} else {
+					themeIcon.classList.remove('fa-sun')
+					themeIcon.classList.add('fa-moon')
+					localStorage.setItem('theme', 'light')
+				}
+			})
+
+			// Mobile sidebar toggle
+			const menuToggle = document.getElementById('menu-toggle')
+			const sidebar = document.getElementById('sidebar')
+			const closeSidebar = document.getElementById('close-sidebar')
+
+			menuToggle.addEventListener('click', function () {
+				sidebar.classList.add('active')
+			})
+
+			closeSidebar.addEventListener('click', function () {
+				sidebar.classList.remove('active')
+			})
+
+			// Close sidebar when clicking outside
+			document.addEventListener('click', function (event) {
+				if (sidebar.classList.contains('active') &&
+					!sidebar.contains(event.target) &&
+					event.target !== menuToggle) {
+					sidebar.classList.remove('active')
+				}
+			})
+
+			// Tabs functionality
+			const tabButtons = document.querySelectorAll('.tab-button')
+
+			tabButtons.forEach(button => {
+				button.addEventListener('click', () => {
+					const tabsContainer = button.closest('.tabs-container')
+					const tabButtons = tabsContainer.querySelectorAll('.tab-button')
+					const tabContents = tabsContainer.querySelectorAll('.tab-content')
+					const tabId = button.getAttribute('data-tab')
+
+					// Remove active class from all buttons and contents
+					tabButtons.forEach(btn => btn.classList.remove('active'))
+					tabContents.forEach(content => content.classList.remove('active'))
+
+					// Add active class to clicked button and corresponding content
+					button.classList.add('active')
+					tabsContainer.querySelector(`#${tabId}-tab`).classList.add('active')
+				})
+			})
+
+			// Progress bar animation
+			const progressBars = document.querySelectorAll('.progress')
+			if (progressBars.length > 0) {
+				progressBars.forEach(bar => {
+					const value = bar.getAttribute('data-value')
+					setTimeout(() => {
+						bar.style.width = value + '%'
+					}, 100)
+				})
+			}
+		})
+
+		// Page navigation
+		function showPage(pageId) {
+			// Hide all pages
+			const pages = document.querySelectorAll('.page-section')
+			pages.forEach(page => {
+				page.classList.remove('active')
+			})
+
+			// Show selected page
+			document.getElementById(pageId).classList.add('active')
+
+			// Update active nav item
+			const navItems = document.querySelectorAll('.nav-item')
+			navItems.forEach(item => {
+				item.classList.remove('active')
+			})
+
+			const activeNavItem = document.querySelector(`.nav-item[data-page="${pageId}"]`)
+			if (activeNavItem) {
+				activeNavItem.classList.add('active')
+			}
+
+			// Close mobile sidebar
+			const sidebar = document.getElementById('sidebar')
+			sidebar.classList.remove('active')
+
+			// Animate progress bars on the page
+			const progressBars = document.querySelectorAll(`#${pageId} .progress`)
+			if (progressBars.length > 0) {
+				progressBars.forEach(bar => {
+					bar.style.width = '0'
+					const value = bar.getAttribute('data-value')
+					setTimeout(() => {
+						bar.style.width = value + '%'
+					}, 100)
+				})
+			}
+		}
+	</script>
+</body>
+
+</html>
